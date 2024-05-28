@@ -1,0 +1,11 @@
+﻿glaucojunior
+Grau#839355
+
+https://objectstorage.sa-saopaulo-1.oraclecloud.com/p/rgmGaUvQUzh7BmdpMVPERYZPLZQG7fNPsyLlEueSX-4rCvXLX-xrPvk4m3b3PDZJ/n/grvbbf1al9nf/b/bucket-novo/o/
+
+[DEFAULT]
+user=ocid1.user.oc1..aaaaaaaam7fhqtim6zqb75av4urs4yydpjq73u6ivhtskrd5qfldobm3jaja
+fingerprint=0f:a3:91:ed:4c:3b:96:9b:99:17:56:2c:72:9a:15:06
+tenancy=ocid1.tenancy.oc1..aaaaaaaad4gm4csicwo5dh7kiaytslk6pgc5cgxkhmlz3ksn43byqo2zqkia
+region=sa-saopaulo-1
+key_file=<path to your private keyfile> # TODO
