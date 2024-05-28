@@ -1,0 +1,6 @@
+[DEFAULT]
+user=ocid1.user.oc1..aaaaaaaam7fhqtim6zqb75av4urs4yydpjq73u6ivhtskrd5qfldobm3jaja
+fingerprint=6c:73:b2:b1:71:02:52:87:ba:d1:ce:dd:6c:20:8d:5e
+tenancy=ocid1.tenancy.oc1..aaaaaaaad4gm4csicwo5dh7kiaytslk6pgc5cgxkhmlz3ksn43byqo2zqkia
+region=sa-saopaulo-1
+key_file=C:/Projetos/projeto-produto-oracle/.oci/glauco_junior@hotmail.com_2024-05-28T06_20_04.542Z.pem

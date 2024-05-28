@@ -16,7 +16,9 @@ class ProdutoRoute {
     constructor() {
         this.#router = express.Router();
 
-        let storage = multer.diskStorage({
+        let storage = multer.memoryStorage();
+
+        /*let storage = multer.diskStorage({
             destination: function(req, res, cb) {
                 cb(null, 'public/img/Produtos');
             },
@@ -24,11 +26,11 @@ class ProdutoRoute {
                 var ext = file.originalname.split(".")[1];
                 cb(null, Date.now().toString() + "." + ext);
             }
-        })
+        })*/
 
         let upload = multer({storage});
         let auth = new Autenticacao();
-        let ctrl = new ProdutoController
+        let ctrl = new ProdutoController();
         this.#router.get('/', auth.usuarioIsAdmin, ctrl.listarView);
         this.#router.get('/cadastro', auth.usuarioIsAdmin, ctrl.cadastroView);
         this.#router.post("/cadastro", auth.usuarioIsAdmin, upload.single("inputImagem"), ctrl.cadastrarProduto);

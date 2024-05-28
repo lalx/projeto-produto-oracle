@@ -10,10 +10,10 @@ class Database {
     constructor() {
 
         this.#conexao = mysql.createPool({
-            host: '140.238.185.50',
-            database: 'DB_106888',
-            user: '106888',
-            password: '106888',
+            host: '144.22.238.97',
+            database: 'schema_produtos',
+            user: 'glaucojunior',
+            password: 'Grau#839355',
         });
         
     }
@@ -57,6 +57,3 @@ class Database {
 }
 
 module.exports = Database;
-
-
-
