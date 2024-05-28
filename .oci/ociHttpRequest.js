@@ -9,7 +9,7 @@ const common = require("oci-common");
 const promise = require("es6-promise");
 require("isomorphic-fetch");
 promise.polyfill();
- 
+
 const configurationFilePath = ".oci//config";
 const configProfile = "DEFAULT";
  
