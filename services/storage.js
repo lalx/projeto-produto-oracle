@@ -1,100 +1,39 @@
-const express = require('express');
-const multer = require('multer');
-const upload = multer()
-const common = require("oci-common");
-const os = require("oci-objectstorage");
-const provider =
- new common.
- ConfigFileAuthenticationDetailsProvider
- (".oci//config", "DEFAULT");
-const client = new os.ObjectStorageClient({
-    authenticationDetailsProvider: provider
-});
-const namespaceName = "grvbbf1al9nf";
-const bucketName = "bucket-novo";
+const ociCommon = require('oci-common');
+const ociStorage = require('oci-objectstorage');
 
-class StorageService {
-    async obterObjetosInfo() {
+module.exports = class StorageService {
+  constructor() {
+    this.#bucket = "bucket-novo";
+    this.#client = new ociStorage.ObjectStorageClient({
+      authenticationDetailsProvider: new ociCommon.ConfigFileAuthenticationDetailsProvider(".oci//config", "DEFAULT"),
+    });
+    this.#endpoint = "https://objectstorage.sa-saopaulo-1.oraclecloud.com";
+    this.#namespace = "grvbbf1al9nf";
+  }
 
-        let listObjectsRequest = {
-            namespaceName,
-            bucketName
-        }
-    
-        const paginator = client.listObjectsRecordIterator(listObjectsRequest);
-    
-        let objetos = [];
-    
-        for await (const response of paginator) {
-            let nome = response.name;
-            let urlOCI = "https://objectstorage.sa-saopaulo-1.oraclecloud.com/p/rgmGaUvQUzh7BmdpMVPERYZPLZQG7fNPsyLlEueSX-4rCvXLX-xrPvk4m3b3PDZJ/n/grvbbf1al9nf/b/bucket-novo/o/" + nome;
-            
-    
-            objetos.push({
-                nome: nome,
-                urlOCI: urlOCI
-            });
-        }
-    
-        return objetos;
-    }
-    
-    /*async sendObject(nome, objeto) {
-    
-        const putObjectRequest = {
-            namespaceName,
-            bucketName,
-            putObjectBody: objeto,
-            objectName: nome
-          };
-    
-          const putObjectResponse = await client.putObject(putObjectRequest);
-          console.log("Put Object executed successfully" + putObjectResponse);
-    
-    }*/
+  #bucket;
+  #client;
+  #endpoint;
+  #namespace;
 
-    async sendObject(nome, objeto) {
-        const putObjectRequest = {
-            namespaceName,
-            bucketName,
-            putObjectBody: objeto,
-            objectName: nome
-        };
-    
-        const putObjectResponse = await client.putObject(putObjectRequest);
-        console.log("Put Object executed successfully", putObjectResponse);
-    
-        // Retorna a URL do objeto
-        const url = `https://objectstorage.us-phoenix-1.oraclecloud.com/n/${namespaceName}/b/${bucketName}/o/${nome}`;
-        return url;
-    }
-    
-    
-    async deleteObject(nome){
-    
-        const deleteObjectRequest = {
-            namespaceName,
-            bucketName,
-            objectName: nome
-          };
-          
-          const deleteObjectResponse = await client.deleteObject(deleteObjectRequest);
-            
-    }
-    
-    async downloadObjeto(nome){
-    
-        const getObjectRequest = {
-            namespaceName,
-            bucketName,
-            objectName: nome,
-        };
-    
-        const getObjectResponse = await client.getObject(getObjectRequest);
-    
-        return getObjectResponse.value;
-    }
-    
+  async deleteObject(filename) {
+    console.log("deletando arq", filename);
+    await this.#client.deleteObject({
+      bucketName: this.#bucket,
+      namespaceName: this.#namespace,
+      objectName: filename,
+    });
+  }
+
+  async sendObject(filename, object) {
+    console.log("enviando arq", filename);
+    await this.#client.putObject({
+      bucketName: this.#bucket,
+      namespaceName: this.#namespace,
+      objectName: filename,
+      putObjectBody: object,
+    });
+
+    return `${this.#endpoint}/n/${this.#namespace}/b/${this.#bucket}/o/${filename}`;
+  }
 }
-
- module.exports = StorageService;

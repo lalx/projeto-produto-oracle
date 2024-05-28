@@ -39,6 +39,7 @@ class ProdutoRoute {
         this.#router.post("/alterar", auth.usuarioIsAdmin, upload.single("inputImagem"),ctrl.alterarProduto);
         this.#router.post("/buscar", ctrl.buscaProduto);
     }
+
 }
 
 module.exports = ProdutoRoute;

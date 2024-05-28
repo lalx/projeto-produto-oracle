@@ -11,6 +11,7 @@ const LoginRoute = require('./routes/loginRoute');
 const Autenticacao = require('./middlewares/autenticacao');
 const cookieParser = require('cookie-parser');
 const PedidoRoute = require('./routes/pedidoRoute');
+const StorageService = require("./services/storage");
 
 const app = express();
 
@@ -56,8 +57,9 @@ app.use("/admin/usuarios", usuarioRota.router);
 let pedidoRota = new PedidoRoute();
 app.use("/admin/pedidos", pedidoRota.router);
 
+const storageService = new StorageService();
 
-global.PRODUTO_IMG_CAMINHO = "/img/Produtos/";
+//global.PRODUTO_IMG_CAMINHO = "/img/Produtos/";
 global.RAIZ_PROJETO = __dirname;
 
 //ponto de inicio do nosso servidor web
